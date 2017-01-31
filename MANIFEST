@@ -8,3 +8,7 @@ gluttony_tw/apps.py
 gluttony_tw/models.py
 gluttony_tw/tests.py
 gluttony_tw/urls.py
+gluttony_tw/view/__init__.py
+gluttony_tw/view/get_user.py
+gluttony_tw/view/order.py
+gluttony_tw/view/restaurant.py

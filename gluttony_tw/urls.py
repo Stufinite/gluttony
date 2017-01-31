@@ -4,7 +4,7 @@ from gluttony_tw.view import restaurant
 from gluttony_tw.view import order
 
 # restaurant api
-urlpatterns += [
+urlpatterns = [
   url(r'^api/restaurant/$', restaurant.rest_api, name='rest_api'),
   url(r'^api/restaurant/prof/$', restaurant.restaurant_prof, name='restaurant_prof'),
   url(r'^api/restaurant/list/$', restaurant.restaurant_list, name='restaurant_list'),
