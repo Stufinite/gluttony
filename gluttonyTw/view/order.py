@@ -1,24 +1,24 @@
 from django.shortcuts import get_object_or_404
-from gluttony_tw.models import ResProf, Dish, Order
+from gluttonyTw.models import ResProf, Dish, Order
 from datetime import datetime, date
 from django.contrib.auth.decorators import login_required
 from djangoApiDec.djangoApiDec import queryString_required, date_proc
 from django.http import JsonResponse, Http404
-from gluttony_tw.apps import purchaseProc
-from gluttony_tw.view.get_user import get_user
+from gluttonyTw.apps import purchaseProc
+from gluttonyTw.view.get_user import get_user
 
 # 使用者的訂單資料，可指定當天或特定日期
 # @login_required
 @date_proc
 def user_api(request, date):
 	# will return eatuser and user of System.
-	EatU, upperuser = get_user(request)
+	EatU = get_user(request)
 
 	json = {
 		'User': EatU.userName,
 		"Date": str(date.date()),
-		"FDish": EatU.FDish.DishName,
-		"Ftype": EatU.FType.ResType,
+		"FDish": EatU.FDish.DishName if EatU.FDish != None else None,
+		"Ftype": EatU.FType.ResType if EatU.FType != None else None,
 		'Order': []
 	}
 

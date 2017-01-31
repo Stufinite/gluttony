@@ -1,5 +1,5 @@
 from django.contrib import admin
-from gluttony_tw.models import Type, ResProf, Date, Phone, Dish, Order, SmallOrder, EatUser, FavorType, FavorDish, ResFavorDish, UserOrder, Menu
+from gluttonyTw.models import Type, ResProf, Date, Phone, Dish, Order, SmallOrder, EatUser, FavorType, FavorDish, ResFavorDish, UserOrder, Menu
 # Register your models here.
 admin.site.register(Type)
 admin.site.register(ResProf)

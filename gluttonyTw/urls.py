@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
-from gluttony_tw.view import restaurant
-from gluttony_tw.view import order
+from gluttonyTw.view import restaurant
+from gluttonyTw.view import order
 
 # restaurant api
 urlpatterns = [

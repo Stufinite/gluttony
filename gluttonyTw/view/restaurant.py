@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from gluttony_tw.models import ResProf, Dish, Type
+from gluttonyTw.models import ResProf, Dish, Type
 from datetime import datetime, date
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required

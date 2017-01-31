@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
             name='EatUser',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('FDish', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='t2e.Dish')),
+                ('FDish', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.Dish')),
             ],
         ),
         migrations.CreateModel(
@@ -47,8 +47,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('freq', models.DecimalField(decimal_places=0, max_digits=4)),
-                ('EatUser', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.EatUser')),
-                ('dish', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='t2e.Dish')),
+                ('EatUser', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.EatUser')),
+                ('dish', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.Dish')),
             ],
         ),
         migrations.CreateModel(
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('freq', models.DecimalField(decimal_places=0, max_digits=4)),
-                ('EatUser', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.EatUser')),
+                ('EatUser', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.EatUser')),
             ],
         ),
         migrations.CreateModel(
@@ -127,68 +127,68 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('total', models.DecimalField(decimal_places=0, max_digits=5)),
                 ('create', models.DateTimeField(null=True)),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.Order')),
-                ('orderUser', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='t2e.EatUser')),
+                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.Order')),
+                ('orderUser', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.EatUser')),
             ],
         ),
         migrations.AddField(
             model_name='smallorder',
             name='UserOrder',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.UserOrder'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.UserOrder'),
         ),
         migrations.AddField(
             model_name='smallorder',
             name='dish',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.Dish'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.Dish'),
         ),
         migrations.AddField(
             model_name='resprof',
             name='ResType',
-            field=models.ManyToManyField(to='t2e.Type'),
+            field=models.ManyToManyField(to='gluttonyTw.Type'),
         ),
         migrations.AddField(
             model_name='resfavordish',
             name='Res',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.ResProf'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.ResProf'),
         ),
         migrations.AddField(
             model_name='resfavordish',
             name='dish',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='t2e.Dish'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.Dish'),
         ),
         migrations.AddField(
             model_name='phone',
             name='restaurant',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.ResProf'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.ResProf'),
         ),
         migrations.AddField(
             model_name='order',
             name='restaurant',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.ResProf'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.ResProf'),
         ),
         migrations.AddField(
             model_name='menu',
             name='restaurant',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.ResProf'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.ResProf'),
         ),
         migrations.AddField(
             model_name='favortype',
             name='type',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='t2e.Type'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.Type'),
         ),
         migrations.AddField(
             model_name='eatuser',
             name='FType',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='t2e.Type'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.Type'),
         ),
         migrations.AddField(
             model_name='dish',
             name='restaurant',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.ResProf'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.ResProf'),
         ),
         migrations.AddField(
             model_name='date',
             name='restaurant',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='t2e.ResProf'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gluttonyTw.ResProf'),
         ),
     ]

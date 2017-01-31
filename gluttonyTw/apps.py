@@ -2,14 +2,14 @@ from django.apps import AppConfig
 
 
 class GluttonyTwConfig(AppConfig):
-    name = 'gluttony_tw'
+    name = 'gluttonyTw'
 
 
 from django.http import Http404
 from django.utils import timezone # auto generate create time.
-from gluttony_tw.models import Order, UserOrder, SmallOrder, Dish
+from gluttonyTw.models import Order, UserOrder, SmallOrder, Dish
 from djangoApiDec.djangoApiDec import getJsonFromApi
-from gluttony_tw.view.get_user import get_user
+from gluttonyTw.view.get_user import get_user
 
 class purchaseProc(object):
 	"""docstring for purchaseProc"""
@@ -41,7 +41,7 @@ class purchaseProc(object):
 				return True
 			return False
 
-		jsonText = getJsonFromApi(self.request, 'http', 'gluttony_tw', 'restaurant_menu', (('res_id', self.restaurant.id),))
+		jsonText = getJsonFromApi(self.request, 'http', 'gluttonyTw', 'restaurant_menu', (('res_id', self.restaurant.id),))
 		menuList = tuple(i['name'] for i in jsonText['dish'])
 
 		cleanPostData = {}
