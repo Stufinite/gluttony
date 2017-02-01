@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404
-from gluttonyTw.models import ResProf, Dish, Order
+from gluttonyTw.models import ResProf, Dish, Order, UserOrder
 from datetime import datetime, date
 from django.contrib.auth.decorators import login_required
 from djangoApiDec.djangoApiDec import queryString_required, date_proc
 from django.http import JsonResponse, Http404
+from django.utils import timezone # auto generate create time.
 from gluttonyTw.apps import purchaseProc
 from gluttonyTw.view.get_user import get_user
 
@@ -12,7 +13,7 @@ from gluttonyTw.view.get_user import get_user
 @date_proc
 def user_api(request, date):
 	# will return eatuser and user of System.
-	EatU = get_user(request)
+	EatU, upperuser = get_user(request)
 
 	json = {
 		'User': EatU.userName,
@@ -36,15 +37,20 @@ def user_api(request, date):
 
 
 # 顯示特定一間餐廳的詳細簡介資料
-@queryString_required(['res_id', 'orderId'])
+@queryString_required(['res_id', 'order_id'])
 def join_order(request):
-	ob = get_object_or_404(Order, id=request.GET['orderId'])
-	if ob.isFinished(): raise Http404('api not found')
 	res = ResProf.objects.get(id=request.GET['res_id'])
+	EatU, upperuser = get_user(request)
+
 
 	if request.POST:
 		data = request.POST
 		data=data.dict()
+
+		ob, created = Order.objects.get_or_create(id=request.GET['order_id'], defaults = dict( restaurant=res, createUser=EatU, create=timezone.localtime(timezone.now()), period=data['period'], total=0, finished=False))
+		uorder = UserOrder.objects.create( orderUser=EatU, total=0, order=ob, create=timezone.localtime(timezone.now()) )
+
+		if ob.isFinished(): raise Http404('api not found')
 
 		p = purchaseProc(res, data, request, ob)
 
@@ -56,6 +62,6 @@ def join_order_list(request):
 	result = []
 	for i in filter(lambda ob:False if ob.isFinished() else True, Order.objects.all()):
 		if i.createUser != None:
-			tmp = dict(orderID=i.id, restaurant=i.restaurant.ResName, createUser=i.createUser.userName, period=i.period)
+			tmp = dict(order_iD=i.id, restaurant=i.restaurant.ResName, createUser=i.createUser.userName, period=i.period)
 			result.append(tmp)
 	return JsonResponse(result, safe=False)

@@ -16,4 +16,4 @@ def get_user(request):
 			'FType' : None,
 		}
 	)
-	return EatU
+	return EatU, upperuser
