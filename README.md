@@ -178,7 +178,8 @@ Usage of API (pattern written below is URL pattern)：
     ```
     >>> import requests  
     >>> payload={'今日特餐':2, 'period':'午餐'}
-    >>> requests.post('http://127.0.0.1:8000/t2e/api/order/join?order_id=1' data=payload)
+    >>> # 建立訂單 requests.post('http://127.0.0.1:8000/t2e/api/order/join?res_id=1', data=payload)
+    >>> # 參與揪團 requests.post('http://127.0.0.1:8000/t2e/api/order/join?order_id=10', data=payload)
     ```
 
     - 發起人需要指定res_id（餐廳在資料庫的id）： `http://127.0.0.1:8000/t2e/api/restaurant/prof/?res_id=1`
