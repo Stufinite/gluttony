@@ -11,7 +11,7 @@ setup(
     download_url = 'https://github.com/Stufinite/gluttony/archive/v1.4.tar.gz',
     keywords = ['time2eat', 'campass'],
     classifiers = [],
-    license='GNU3.0',
+    license='GPL.0',
     install_requires=[
         'djangoApiDec==1.2',
     ],

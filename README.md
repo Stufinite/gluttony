@@ -133,7 +133,7 @@ Usage of API (pattern written below is URL pattern)：
 - 顧客類別：<br>
   可以用來定餐、查詢過往定餐紀錄等等。
 
-  1. _`api/order/user/`_：取得餐廳的訂單資料
+  1. _`api/order/user/`_：取得顧客的訂單資料
 
     - 加上`date`參數可以指定某日期的訂單： `http://127.0.0.1:8000/t2e/api/order/user/?date=2017-02-01`
 
@@ -224,19 +224,15 @@ These instructions will get you a copy of the project up and running on your loc
   - Linux：`sudo apt-get update; sudo apt-get install; python3 python3-dev`
   - OSX：`brew install python3`
 
-3. service：need `mongodb`：
-
-  - Linux：`sudo apt-get install mongodb`
-
 ## Installing
 
-1. `pip install curso`
+1. `pip install gluttonyTw`
 
 ## Running & Testing
 
 ## Run
 
-1. `settings.py`裏面需要新增curso這個app：
+1. `settings.py`裏面需要新增`gluttonyTw`這個app：
 
   - add this:
 
@@ -245,22 +241,22 @@ These instructions will get you a copy of the project up and running on your loc
     ...
     ...
     ...
-    'curso',
+    'gluttonyTw',
     ]
     ```
 
-2. `urls.py`需要新增下列代碼 把所有search開頭的request都導向到curso這個app：
+2. `urls.py`需要新增下列代碼 把所有search開頭的request都導向到`gluttonyTw`這個app：
 
   - add this:
 
     ```
-    import curso.urls
+    import gluttonyTw.urls
     urlpatterns += [
-    url(r'^search/', include(curso.urls))
+        url(r'^t2e/',include(gluttonyTw.urls,namespace="gluttonyTw") ),
     ]
     ```
 
-3. `python manage.py runserver`：即可進入頁面測試curso是否安裝成功。
+3. `python manage.py runserver`：即可進入頁面測試 `gluttonyTw` 是否安裝成功。
 
 ### Break down into end to end tests
 
@@ -274,16 +270,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 `curso` is a django-app, so depends on django project.
 
-`課搜` 是一般的django插件，所以必須依存於django專案
+`暴食` 是一般的django插件，所以必須依存於django專案
 
 ## Built With
 
 - djangoApiDec==1.2,
-- jieba==0.38,
-- pymongo==3.4.0,
-- PyPrind==2.9.9,
-- requests==2.12.3,
-- simplejson==3.10.0,
 
 ## Contributors
 
@@ -291,8 +282,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## License
 
-This package use `MIT` License.
+This package use `GPL3.0` License.
 
 ## Acknowledgments
 
-感謝`范耀中`老師的指導
+感謝 `剛之煉金術師`給予命名靈感
