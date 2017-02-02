@@ -40,16 +40,15 @@ class purchaseProc(object):
 			if dishName!= 'period' and dishName!= 'csrfmiddlewaretoken' and dishName!='':
 				return True
 			return False
-
 		jsonText = getJsonFromApi(self.request, 'http', 'gluttonyTw', 'restaurant_menu', (('res_id', self.restaurant.id),))
 		menuList = tuple(i['name'] for i in jsonText['dish'])
-
 		cleanPostData = {}
 		for i in postData:
 			if i not in menuList and checkValidOrder(i):
 				raise Http404("api does not exist")
 			elif checkValidOrder(i):
 				cleanPostData[i] = postData[i]
+		if cleanPostData == {}: raise Http404("clean post data shouldnt be empty")
 		return cleanPostData
 
 	def check(self):

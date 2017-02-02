@@ -37,31 +37,35 @@ def user_api(request, date):
 
 
 # 顯示特定一間餐廳的詳細簡介資料
-@queryString_required(['res_id', 'order_id'])
 def join_order(request):
-	res = ResProf.objects.get(id=request.GET['res_id'])
-	EatU, upperuser = get_user(request)
-
-
 	if request.POST:
 		data = request.POST
 		data=data.dict()
 
-		ob, created = Order.objects.get_or_create(id=request.GET['order_id'], defaults = dict( restaurant=res, createUser=EatU, create=timezone.localtime(timezone.now()), period=data['period'], total=0, finished=False))
-		uorder = UserOrder.objects.create( orderUser=EatU, total=0, order=ob, create=timezone.localtime(timezone.now()) )
+		if 'res_id' in request.GET and 'order_id' not in request.GET:	
+			res = ResProf.objects.get(id=request.GET['res_id'])
+			EatU, upperuser = get_user(request)
 
+			ob = Order.objects.create(restaurant=res, createUser=EatU, create=timezone.localtime(timezone.now()), period=data['period'], total=0, finished=False)
+			uorder = UserOrder.objects.create( orderUser=EatU, total=0, order=ob, create=timezone.localtime(timezone.now()) )
+			
+		elif 'order_id' in request.GET and 'res_id' not in request.GET:
+			ob = get_object_or_404(Order, id=request.GET['order_id'])
+			res = ob.restaurant
+		else:
+			raise Http404('parameter error')
+			
 		if ob.isFinished(): raise Http404('api not found')
-
 		p = purchaseProc(res, data, request, ob)
-
 		return JsonResponse({"purchase":"success"}, safe=False)
-	raise Http404('you didnt supply post data.')
+
+	raise Http404('api should use post')
 
 # 顯示特定一間餐廳的詳細簡介資料
 def join_order_list(request):
 	result = []
 	for i in filter(lambda ob:False if ob.isFinished() else True, Order.objects.all()):
 		if i.createUser != None:
-			tmp = dict(order_iD=i.id, restaurant=i.restaurant.ResName, createUser=i.createUser.userName, period=i.period)
+			tmp = dict(order_id=i.id, restaurant=i.restaurant.ResName, createUser=i.createUser.userName, period=i.period)
 			result.append(tmp)
 	return JsonResponse(result, safe=False)
