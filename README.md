@@ -1,5 +1,7 @@
 # GluttonyTw（暴食）
 
+今天吃什麼的api
+
 _`gluttony`_ 是天主教中七原罪的暴食之罪<br>
 因為貼切反應學生使用此功能的動機<br>
 所以以此命名。無奈gluttony在pypi上已經被註冊過了，所以後面加上Tw
