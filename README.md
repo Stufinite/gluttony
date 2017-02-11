@@ -99,7 +99,9 @@ Usage of API (pattern written below is URL pattern)：
 
   3. _`api/restaurant/list/`_：取得包含所有餐廳的陣列
 
-    - 範例： `http://127.0.0.1:8000/t2e/api/restaurant/list`
+    - `start`：從第幾筆餐廳資料開始
+    - `gap`(optional)：一次取幾筆，預設值是15筆
+    - 範例： `http://127.0.0.1:8000/t2e/api/restaurant/list?start=1`
 
       ```
       [
