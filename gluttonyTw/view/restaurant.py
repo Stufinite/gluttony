@@ -47,7 +47,7 @@ def restaurant_list(request):
 	start = int(request.GET['start']) - 1 # 因為index是從0開始算，可是人類習慣講從第一筆到第十五筆，所以在這邊幫人類-1
 	gap = int(request.GET['gap']) if 'gap' in request.GET else 15
 	resObject = ResProf.objects.all()[start::gap]
-	json = list(map(lambda i:dict(ResName=i.ResName, ResLike = int(i.ResLike), score = int(i.score),  avatar = 'http://' + request.get_host() + i.avatar.url), resObject))
+	json = list(map(lambda i:dict(res_id=i.id, ResName=i.ResName, ResLike = int(i.ResLike), score = int(i.score),  avatar = 'http://' + request.get_host() + i.avatar.url), resObject))
 	return JsonResponse(json, safe=False)
 
 
