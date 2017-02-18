@@ -72,6 +72,16 @@ class EatUser(models.Model):
     def __str__(self):
         return str(self.UpperUser)
 
+class Comment(models.Model):
+    restaurant = models.ForeignKey(ResProf)
+    author = models.ForeignKey(EatUser)
+    feeling = models.CharField(max_length=200, null=True)
+    like = models.DecimalField(default=0,max_digits=3, decimal_places=0)
+    def __str__(self):
+        return self.feeling
+    def addLike(self):
+        self.like += 1
+
 class FavorType(models.Model):
     EatUser = models.ForeignKey(EatUser)
     type = models.ForeignKey(Type, null=True)
