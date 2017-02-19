@@ -93,10 +93,11 @@ def restaurant_prof(request):
 	return JsonResponse(json, safe=False)
 
 from django.core import serializers
+import json
 # 顯示特定一間餐廳的評論留言
-@queryString_required(['res_id'])
+@queryString_required(['res_id', 'start'])
 def restaurant_comment(request):
 	Res = get_object_or_404(ResProf, id=request.GET['res_id'])  # 回傳餐廳物件
-	comment_list = Res.comment_set.order_by('-like')[:10]
-	print(serializers.serialize('json', list(comment_sett_list), fields=('author', 'feeling', 'like')))
-	return JsonResponse(serializers.serialize('json', comment_list), safe=False)
+	start = int(request.GET['start']) - 1
+	comment_list = Res.comment_set.order_by('-like')[start:start+15]
+	return JsonResponse(json.loads(serializers.serialize('json', list(comment_list), fields=('author', 'feeling', 'like'))), safe=False)

@@ -76,7 +76,7 @@ class Comment(models.Model):
     restaurant = models.ForeignKey(ResProf)
     author = models.ForeignKey(EatUser)
     feeling = models.CharField(max_length=200, null=True)
-    like = models.DecimalField(default=0,max_digits=3, decimal_places=0)
+    like = models.PositiveSmallIntegerField(default=1)
     def __str__(self):
         return self.feeling
     def addLike(self):
