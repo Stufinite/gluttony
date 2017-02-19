@@ -41,7 +41,6 @@ def join_order(request):
 	if request.POST:
 		data = request.POST
 		data=data.dict()
-
 		if 'res_id' in request.GET and 'order_id' not in request.GET:	
 			res = ResProf.objects.get(id=request.GET['res_id'])
 			EatU, upperuser = get_user(request)
@@ -54,7 +53,7 @@ def join_order(request):
 			res = ob.restaurant
 		else:
 			raise Http404('parameter error')
-			
+		
 		if ob.isFinished(): raise Http404('api not found')
 		p = purchaseProc(res, data, request, ob)
 		return JsonResponse({"purchase":"success"}, safe=False)
