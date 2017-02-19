@@ -184,13 +184,13 @@ Usage of API (pattern written below is URL pattern)：
     >>> # 參與揪團 requests.post('http://127.0.0.1:8000/t2e/api/order/join?order_id=10', data=payload)
     ```
 
-    - 發起人需要指定res_id（餐廳在資料庫的id）： `http://127.0.0.1:8000/t2e/api/restaurant/prof/?res_id=1`
+    - 發起人需要指定res_id（餐廳在資料庫的id）： `http://127.0.0.1:8000/t2e/api/order/join/?res_id=1`
 
       ```
       {"purchase": "success"}
       ```
 
-    - 參與揪團的人要指定orderID （訂單在資料庫的id）： `http://127.0.0.1:8000/t2e/api/restaurant/prof/?order_id=6`
+    - 參與揪團的人要指定orderID （訂單在資料庫的id）： `http://127.0.0.1:8000/t2e/api/order/join/?order_id=6`
 
       ```
       {"purchase": "success"}
@@ -216,6 +216,34 @@ Usage of API (pattern written below is URL pattern)：
   },
 ]
       ```
+- 留言版：<br>
+  回傳該間餐廳的留言評價  
+  1. *`/api/restaurant/comment/`*：顯示該間餐廳的留言  
+    * `res_id`：餐廳ID
+    * `start`：從第幾筆餐廳留言開始取，留言有按讚數量（like），Descending排列，每次提供 start ~ start + 15 的範圍
+    * 範例：`http://127.0.0.1:8000/t2e/api/restaurant/comment/?res_id=1&start=1`  
+    ```
+    [
+  {
+    "fields": {
+      "author": 1,
+      "feeling": "還行拉 蠻有特色的店",
+      "like": 20
+    },
+    "model": "gluttonyTw.comment",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "author": 1,
+      "feeling": "氣氛佳 不過稍貴就是了",
+      "like": 10
+    },
+    "model": "gluttonyTw.comment",
+    "pk": 2
+  },
+]
+    ```
 
 ## Getting Started
 
