@@ -196,9 +196,9 @@ Usage of API (pattern written below is URL pattern)：
       {"purchase": "success"}
       ```
 
-  3. *`api/order/join_order_list/`*：取得包含所有揪團訂單的陣列
+  3. *`api/order/join_order_list/`*：取得包含所有揪團訂單的陣列  
 
-    - 範例： `http://127.0.0.1:8000/t2e/api/order/join_order_list`
+    - 需要指定res_id（餐廳在資料庫的id）： `http://127.0.0.1:8000/t2e/api/order/join_order_list/?res_id=1`
 
       ```
       [
