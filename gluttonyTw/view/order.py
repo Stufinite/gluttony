@@ -62,10 +62,11 @@ def join_order(request):
 	raise Http404('api should use post')
 
 # 顯示特定一間餐廳的詳細簡介資料
+@queryString_required(['res_id'])
 def join_order_list(request):
 	result = []
-	for i in filter(lambda ob:False if ob.isFinished() else True, Order.objects.all()):
-		if i.createUser != None:
-			tmp = dict(order_id=i.id, restaurant=i.restaurant.ResName, createUser=i.createUser.userName, period=i.period)
-			result.append(tmp)
+	res_id = int(request.GET['res_id'])
+	for i in filter(lambda ob:True if not ob.isFinished() and ob.restaurant.id == res_id else False, Order.objects.all()):
+		tmp = dict(order_id=i.id, restaurant=i.restaurant.ResName, createUser=i.createUser.userName, period=i.period)
+		result.append(tmp)
 	return JsonResponse(result, safe=False)
