@@ -14,8 +14,8 @@ class Type(models.Model):
 class ResProf(models.Model):
     ResName = models.CharField(max_length=30, null=True) # 餐廳名稱
     address = models.CharField(max_length=30, null=True)
-    ResLike = models.DecimalField(default=50,max_digits=6, decimal_places=0  ) # always add default value!
-    score = models.DecimalField(default=3,max_digits=1, decimal_places=0)
+    ResLike = models.PositiveSmallIntegerField(default=50) # always add default value!
+    score = models.PositiveSmallIntegerField(default=3)
     last_reserv = models.CharField(max_length=20)
     ResType = models.ManyToManyField(Type) # 餐廳的料理類型
     country = models.CharField(max_length=10) # 哪個國家的餐廳
@@ -56,7 +56,7 @@ class Phone(models.Model):
 
 class Dish(models.Model):
     DishName = models.CharField(max_length=20, null=True) # 菜名
-    price = models.DecimalField(max_digits=6, decimal_places=0) # 價錢
+    price = models.PositiveIntegerField(default=0) # 價錢
     isSpicy = models.BooleanField()
     restaurant = models.ForeignKey(ResProf) # 餐點的餐廳
     image = models.ImageField(default='images/time2eat/turkey.svg') # 餐點的照片
@@ -76,7 +76,7 @@ class Comment(models.Model):
     restaurant = models.ForeignKey(ResProf)
     author = models.ForeignKey(EatUser)
     feeling = models.CharField(max_length=200, null=True)
-    like = models.DecimalField(default=0,max_digits=3, decimal_places=0)
+    like = models.PositiveSmallIntegerField(default=1)
     def __str__(self):
         return self.feeling
     def addLike(self):
@@ -85,18 +85,18 @@ class Comment(models.Model):
 class FavorType(models.Model):
     EatUser = models.ForeignKey(EatUser)
     type = models.ForeignKey(Type, null=True)
-    freq = models.DecimalField(max_digits=4, decimal_places=0) # 紀錄你吃這種類型的餐廳幾次
+    freq = models.PositiveIntegerField() # 紀錄你吃這種類型的餐廳幾次
 
 class FavorDish(models.Model):
     EatUser = models.ForeignKey(EatUser)
     dish = models.ForeignKey(Dish, null=True)
-    freq = models.DecimalField(max_digits=4, decimal_places=0) # 紀錄你常常吃哪一道菜
+    freq = models.PositiveIntegerField() # 紀錄你常常吃哪一道菜
 
 class ResFavorDish(models.Model):
     # 用來紀錄餐廳的各個餐點受到歡迎的程度
     Res = models.ForeignKey(ResProf)
     dish = models.ForeignKey(Dish, null=True)
-    freq = models.DecimalField(max_digits=6, decimal_places=0)
+    freq = models.PositiveIntegerField(default=0)
     dateOfMon_Year = models.DateTimeField() # 儲存這個月該餐點的銷售量就好
 
 
@@ -106,7 +106,7 @@ class Order(models.Model):
     createUser = models.ForeignKey(EatUser, null=True)
     create = models.DateTimeField() # 訂單的精確時間
     period = models.CharField(max_length=1) # 標示是早中午哪個時段
-    total = models.DecimalField(max_digits=8, decimal_places=0) # 該訂單總額
+    total = models.PositiveIntegerField() # 該訂單總額
     finished = models.BooleanField(default=False)
     def __str__(self):
         return str(self.create) + ' ' + str(self.restaurant)
@@ -117,7 +117,7 @@ class Order(models.Model):
 
 class UserOrder(models.Model):
     orderUser = models.ForeignKey(EatUser, null=True) # 為了要紀錄使用者有定過哪些菜色（這邊很有問題）
-    total = models.DecimalField(max_digits=5, decimal_places=0) # 該使用者這次定餐的總額
+    total = models.PositiveIntegerField() # 該使用者這次定餐的總額
     order = models.ForeignKey(Order) # 隸屬的訂單
     create = models.DateTimeField(null=True) # 訂單的精確時間
     def __str__(self):
@@ -125,7 +125,7 @@ class UserOrder(models.Model):
 
 class SmallOrder(models.Model):
     dish = models.ForeignKey(Dish)
-    amount = models.DecimalField(max_digits=3, decimal_places=0)
+    amount = models.PositiveIntegerField()
     UserOrder = models.ForeignKey(UserOrder)
     def __str__(self):
         return str(self.dish) + ' ' + str(self.amount) + '份'
