@@ -92,12 +92,21 @@ def restaurant_prof(request):
 
 	return JsonResponse(json, safe=False)
 
-from django.core import serializers
-import json
 # 顯示特定一間餐廳的評論留言
-@queryString_required(['res_id', 'start'])
+@queryString_required(['res_id'])
 def restaurant_comment(request):
+	import json
+	from django.core import serializers
+	from gluttonyTw.view.get_user import get_user
 	Res = get_object_or_404(ResProf, id=request.GET['res_id'])  # 回傳餐廳物件
-	start = int(request.GET['start']) - 1
-	comment_list = Res.comment_set.order_by('-like')[start:start+15]
-	return JsonResponse(json.loads(serializers.serialize('json', list(comment_list), fields=('author', 'feeling', 'like'))), safe=False)
+	EatU, upperuser = get_user(request)
+
+	if request.POST:
+		data = request.POST
+		data = data.dict()
+		Comment.objects.create(restaurant=Res, author=EatU, feeling=data['feeling'], like=0)
+		return JsonResponse({'reply':'success'})
+	else:
+		start = int(request.GET['start']) - 1
+		comment_list = Res.comment_set.order_by('-like')[start:start+15]
+		return JsonResponse(json.loads(serializers.serialize('json', list(comment_list), fields=('author', 'feeling', 'like'))), safe=False)

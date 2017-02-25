@@ -11,7 +11,30 @@ _`gluttonyTw`_ 提供兩類api
 1. 顧客類：可以用來定餐、查詢過往定餐紀錄等等。
 2. 餐廳類：可以查店家資訊、菜色以及收到的訂單。
 
-## API usage and Results
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [API](#api)
+  - [parameter](#parameter)
+  - [usage and Results](#usage-and-results)
+- [Getting Started](#getting-started)
+- [Prerequisities](#prerequisities)
+- [Installing](#installing)
+- [Running & Testing](#running--testing)
+- [Run](#run)
+  - [Break down into end to end tests](#break-down-into-end-to-end-tests)
+  - [And coding style tests](#and-coding-style-tests)
+- [Deployment](#deployment)
+- [Built With](#built-with)
+- [Contributors](#contributors)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
+## API
 
 api domain：目前還沒架起來，所以暫定`127.0.0.1`<br>
 請在api domain後面接上正確的url pattern以及query string<br>
@@ -23,7 +46,7 @@ api domain：目前還沒架起來，所以暫定`127.0.0.1`<br>
 - `order_id`：訂單的id，用在揪團訂購的時候，需要指定你要參加的是哪一筆揪團訂單
 - `date`：時間參數
 
-  ### API usage and Results
+### usage and Results
 
 API使用方式（下面所寫的是api的URL pattern）<br>
 Usage of API (pattern written below is URL pattern)：
@@ -218,10 +241,20 @@ Usage of API (pattern written below is URL pattern)：
       ```
 - 留言版：<br>
   回傳該間餐廳的留言評價  
-  1. *`/api/restaurant/comment/`*：顯示該間餐廳的留言  
+  1. *`/api/restaurant/comment/`*：顯示該間餐廳的留言 or 留言給餐廳
     * `res_id`：餐廳ID
-    * `start`：從第幾筆餐廳留言開始取，留言有按讚數量（like），Descending排列，每次提供 start ~ start + 15 的範圍
-    * 範例：`http://127.0.0.1:8000/t2e/api/restaurant/comment/?res_id=1&start=1`  
+      * 顯示該間餐廳的留言：
+        * （optional）`start`：從第幾筆餐廳留言開始取，留言有按讚數量（like），Descending排列，每次提供 start ~ start + 15 的範圍
+      * 留言給餐廳：
+        * （optional）post所接受的欄位如下：
+          ```
+          class Comment(models.Model):
+              restaurant = models.ForeignKey(ResProf)
+              author = models.ForeignKey(EatUser)
+              feeling = models.CharField(max_length=200, null=True)
+              like = models.PositiveSmallIntegerField(default=1)
+          ```
+    * Get範例：`http://127.0.0.1:8000/t2e/api/restaurant/comment/?res_id=1&start=1`  
     ```
     [
   {
@@ -244,6 +277,11 @@ Usage of API (pattern written below is URL pattern)：
   },
 ]
     ```
+    * Post範例：
+      ```
+      等松鬆綁上去測測看 因為使用者帳號的Request一定要從網頁發出去我才知道他的帳號
+      我現在覽的綁到網頁上所以你幫我測一下XD
+      ```
 
 ## Getting Started
 
