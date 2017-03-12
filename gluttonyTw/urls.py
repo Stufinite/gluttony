@@ -9,7 +9,7 @@ urlpatterns = [
   url(r'^api/restaurant/prof/$', restaurant.restaurant_prof, name='restaurant_prof'),
   url(r'^api/restaurant/list/$', restaurant.restaurant_list, name='restaurant_list'),
   url(r'^api/restaurant/menu/$', restaurant.restaurant_menu, name='restaurant_menu'),
-  url(r'^api/restaurant/comment/$', restaurant.restaurant_comment, name='restaurant_comment'),
+  url(r'^api/restaurant/comment/$', restaurant.ResComment.as_view(), name='restaurant_comment'),
 ]
 
 # order api
