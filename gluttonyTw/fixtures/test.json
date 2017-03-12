@@ -1,0 +1,180 @@
+[
+{
+    "model": "gluttonyTw.type",
+    "pk": 1,
+    "fields": {
+        "ResType": "\u4e2d\u5f0f"
+    }
+},
+{
+    "model": "gluttonyTw.type",
+    "pk": 2,
+    "fields": {
+        "ResType": "\u897f\u5f0f"
+    }
+},
+{
+    "model": "gluttonyTw.resprof",
+    "pk": 1,
+    "fields": {
+        "ResName": "\u9f0e\u65e5\u7af9\u696d\u722d\u98ef",
+        "address": "\u53f0\u4e2d\u5e02\u8208\u5927\u9678",
+        "ResLike": 50,
+        "score": 3,
+        "last_reserv": "20:00",
+        "country": "\u53f0\u4e2d\u5e02",
+        "avatar": "\u934b\u88e1\u934b\u7269_0DG1657.jpg",
+        "environment": "\u7528\u9910\u74b0\u5883_lsJZ7uc.jpg",
+        "envText": "\u4ee5\u65b0\u9bae\u98df\u6750\u4f50\u7279\u88fd\u6e6f\u982d\uff0c\u642d\u914d\u98a8\u683c\u8a2d\u8a08\u7a7a\u9593\uff0c\u8b93\u805a\u9910\u9664\u4e86\u4eab\u53d7\u7f8e\u98df\uff0c\u4e5f\u80fd\u63d0\u5347\u6642\u5c1a\u54c1\u5473\uff01",
+        "feature": "\u6599\u7406\u7279\u8272_I0GWPVj.jpg",
+        "featureText": "\u5747\u52fb\u5206\u5e03\u7684\u6cb9\u82b1\u8207\u9bae\u7d05\u8089\u8cea\uff0c\u8b93\u53e3\u611f\u66f4\u52a0\u7d2e\u5be6\u4e0d\u51e1\uff0c\u8089\u7368\u6709\u7684\u9999\u6c23\u8207\u6cb9\u82b1\u6f64\u98fe\uff0c\u653e\u9032\u7cbe\u5fc3\u71ac\u716e\u6e05\u751c\u7684\u6e6f\u6c41\u4e2d\u8f15\u6dae\uff0c\u4ee4\u4eba\u6d41\u9023\u5fd8\u8fd4\u7684\u9999\u6ed1\u67d4\u5ae9\u53e3\u611f\uff0c\u8b93\u4f60\u611f\u52d5\u4e0d\u5df2\uff01",
+        "breakfast": "6:00-10:00",
+        "lunch": "11:00-14:00",
+        "dinner": "17:00-21:00",
+        "ResType": [
+            1
+        ]
+    }
+},
+{
+    "model": "gluttonyTw.resprof",
+    "pk": 2,
+    "fields": {
+        "ResName": "\u9ea5\u7576\u52de",
+        "address": "\u8ce3\u7576\u5730\u5340",
+        "ResLike": 50,
+        "score": 3,
+        "last_reserv": "24:00",
+        "country": "\u7f8e\u570b",
+        "avatar": "images/time2eat/restaurant.svg",
+        "environment": "images/time2eat/burger.svg",
+        "envText": "\u4ee5\u65b0\u9bae\u98df\u6750\u4f50\u7279\u88fd\u6e6f\u982d\uff0c\u642d\u914d\u98a8\u683c\u8a2d\u8a08\u7a7a\u9593\uff0c\u8b93\u805a\u9910\u9664\u4e86\u4eab\u53d7\u7f8e\u98df\uff0c\u4e5f\u80fd\u63d0\u5347\u6642\u5c1a\u54c1\u5473\uff01",
+        "feature": "images/time2eat/noodles.svg",
+        "featureText": "\u5747\u52fb\u5206\u5e03\u7684\u6cb9\u82b1\u8207\u9bae\u7d05\u8089\u8cea\uff0c\u8b93\u53e3\u611f\u66f4\u52a0\u7d2e\u5be6\u4e0d\u51e1\uff0c\u8089\u7368\u6709\u7684\u9999\u6c23\u8207\u6cb9\u82b1\u6f64\u98fe\uff0c\u653e\u9032\u7cbe\u5fc3\u71ac\u716e\u6e05\u751c\u7684\u6e6f\u6c41\u4e2d\u8f15\u6dae\uff0c\u4ee4\u4eba\u6d41\u9023\u5fd8\u8fd4\u7684\u9999\u6ed1\u67d4\u5ae9\u53e3\u611f\uff0c\u8b93\u4f60\u611f\u52d5\u4e0d\u5df2\uff01",
+        "breakfast": "6:00-10:00",
+        "lunch": "11:00-14:00",
+        "dinner": "17:00-21:00",
+        "ResType": [
+            2
+        ]
+    }
+},
+{
+    "model": "gluttonyTw.menu",
+    "pk": 1,
+    "fields": {
+        "restaurant": 1,
+        "image": "\u83dc\u55ae_jAQMOMH.jpg"
+    }
+},
+{
+    "model": "gluttonyTw.dish",
+    "pk": 1,
+    "fields": {
+        "DishName": "\u4eca\u65e5\u7279\u9910",
+        "price": 60,
+        "isSpicy": false,
+        "restaurant": 1,
+        "image": "\u6392\u9aa8\u98ef_uVjes53.jpg"
+    }
+},
+{
+    "model": "gluttonyTw.eatuser",
+    "pk": 1,
+    "fields": {
+        "userName": "root",
+        "FDish": null,
+        "FType": null
+    }
+},
+{
+    "model": "gluttonyTw.comment",
+    "pk": 1,
+    "fields": {
+        "restaurant": 1,
+        "author": 1,
+        "feeling": "\u51fa\u9910\u901f\u5ea6\u6709\u9ede\u6162\u311f",
+        "like": 5
+    }
+},
+{
+    "model": "gluttonyTw.comment",
+    "pk": 2,
+    "fields": {
+        "restaurant": 1,
+        "author": 1,
+        "feeling": "\u6c23\u6c1b\u4f73 \u4e0d\u904e\u7a0d\u8cb4\u5c31\u662f\u4e86",
+        "like": 10
+    }
+},
+{
+    "model": "gluttonyTw.comment",
+    "pk": 3,
+    "fields": {
+        "restaurant": 1,
+        "author": 1,
+        "feeling": "\u9084\u884c\u62c9 \u883b\u6709\u7279\u8272\u7684\u5e97",
+        "like": 20
+    }
+},
+{
+    "model": "gluttonyTw.order",
+    "pk": 1,
+    "fields": {
+        "restaurant": 1,
+        "createUser": 1,
+        "create": "2017-02-19T03:16:34.665Z",
+        "period": "\u5348\u9910",
+        "total": 240,
+        "finished": false
+    }
+},
+{
+    "model": "gluttonyTw.userorder",
+    "pk": 1,
+    "fields": {
+        "orderUser": 1,
+        "total": 0,
+        "order": 1,
+        "create": "2017-02-19T03:16:34.776Z"
+    }
+},
+{
+    "model": "gluttonyTw.userorder",
+    "pk": 2,
+    "fields": {
+        "orderUser": 1,
+        "total": 120,
+        "order": 1,
+        "create": "2017-02-19T03:16:34.930Z"
+    }
+},
+{
+    "model": "gluttonyTw.userorder",
+    "pk": 3,
+    "fields": {
+        "orderUser": 1,
+        "total": 120,
+        "order": 1,
+        "create": "2017-02-19T03:17:16.486Z"
+    }
+},
+{
+    "model": "gluttonyTw.smallorder",
+    "pk": 1,
+    "fields": {
+        "dish": 1,
+        "amount": 2,
+        "UserOrder": 2
+    }
+},
+{
+    "model": "gluttonyTw.smallorder",
+    "pk": 2,
+    "fields": {
+        "dish": 1,
+        "amount": 2,
+        "UserOrder": 3
+    }
+}
+]

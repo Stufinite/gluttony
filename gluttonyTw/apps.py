@@ -10,6 +10,7 @@ from django.utils import timezone # auto generate create time.
 from gluttonyTw.models import Order, UserOrder, SmallOrder, Dish
 from djangoApiDec.djangoApiDec import getJsonFromApi
 from gluttonyTw.view.get_user import get_user
+from gluttonyTw.view.restaurant import restaurant_menu
 
 class purchaseProc(object):
 	"""docstring for purchaseProc"""
@@ -40,7 +41,13 @@ class purchaseProc(object):
 			if dishName!= 'period' and dishName!= 'csrfmiddlewaretoken' and dishName!='':
 				return True
 			return False
-		jsonText = getJsonFromApi(self.request, 'http', 'gluttonyTw', 'restaurant_menu', (('res_id', self.restaurant.id),))
+			getJsonFromApi
+
+		# _mutable_ is a flag which control request.GET is mutable or immutable.
+		self.request.GET._mutable = True
+		self.request.GET['res_id'] = self.restaurant.id
+
+		jsonText = getJsonFromApi(restaurant_menu, self.request)
 		menuList = tuple(i['name'] for i in jsonText['dish'])
 		cleanPostData = {}
 		for i in postData:

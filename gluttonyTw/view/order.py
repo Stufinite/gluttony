@@ -31,7 +31,6 @@ def user_api(request, date):
 			'meal': [dict(name=SObject.dish.DishName, amount=SObject.amount) for SObject in UOrderObject.smallorder_set.all()]
 		}
 		json['Order'].append(tmp)
-
 	return JsonResponse(json, safe=False)
 
 
@@ -41,7 +40,8 @@ def join_order(request):
 	if request.POST:
 		data = request.POST
 		data=data.dict()
-		if 'res_id' in request.GET and 'order_id' not in request.GET:	
+		if 'res_id' in request.GET and 'order_id' not in request.GET:
+			# only supply res_id means you are the one who create a order and that other people to join.	
 			res = ResProf.objects.get(id=request.GET['res_id'])
 			EatU, upperuser = get_user(request)
 
@@ -49,12 +49,15 @@ def join_order(request):
 			uorder = UserOrder.objects.create( orderUser=EatU, total=0, order=ob, create=timezone.localtime(timezone.now()) )
 			
 		elif 'order_id' in request.GET and 'res_id' not in request.GET:
+			# only supply order_id means you want to join this order.
 			ob = get_object_or_404(Order, id=request.GET['order_id'])
 			res = ob.restaurant
 		else:
 			raise Http404('parameter error')
 		
 		if ob.isFinished(): raise Http404('api not found')
+
+		# the purchase happens here!
 		p = purchaseProc(res, data, request, ob)
 		return JsonResponse({"purchase":"success"}, safe=False)
 
