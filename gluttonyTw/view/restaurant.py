@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views import View
 from gluttonyTw.models import ResProf, Dish, Type
-from datetime import datetime, date
+import datetime, collections
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from djangoApiDec.djangoApiDec import queryString_required, date_proc, queryString_required_ClassVersion
@@ -12,7 +12,6 @@ from djangoApiDec.djangoApiDec import queryString_required, date_proc, queryStri
 @queryString_required(['res_id'])
 def rest_api(request, date):
     Res = get_object_or_404(ResProf, id=request.GET['res_id'])  # 回傳餐廳物件
-    Res = ResProf.objects.get(id=request.GET['res_id'])  # 回傳餐廳物件
 
     result = {
         "ResName": Res.ResName,
@@ -41,7 +40,41 @@ def rest_api(request, date):
 
     return JsonResponse(result, safe=False)
 
+@date_proc
+@queryString_required(['res_id'])
+def boss(request, date):
+    Res = get_object_or_404(ResProf, id=request.GET['res_id'])
+    # 回傳餐廳物件
 
+    result = {
+        "revenue":0,
+        "sells":collections.defaultdict(dict),
+        "chart":{}
+    }
+
+    timeDelta = datetime.datetime(date.year, date.month+1, 1) - datetime.datetime(date.year, date.month, 1)
+    # time delta 是計算該月有多少天，把下個月的第1天與這個月的第1天互減就會知道這個月最後一天是幾號了
+
+    for OrderObject in Res.order_set.filter(
+        create__gte=datetime.date(date.year, date.month, 1),  
+        create__lte=datetime.date(date.year, date.month, timeDelta.days), finished=False):
+        # 篩選出特定日期的訂單物件, 而且一定要是finished=True代表已經截止揪團
+
+        result['revenue'] += int(OrderObject.total)
+        # 該月的收益
+
+        result['chart'][str(OrderObject.create.date())] = int(OrderObject.total)
+        # 該天的收益
+
+        # 計算所有餐點在這個月總共賣了多少
+        for uOrder in OrderObject.userorder_set.all():
+            # 迭代一個使用者所訂的所有餐點
+            for sOrder in uOrder.smallorder_set.all():
+
+                result['sells'][sOrder.dish.DishName]['amout'] = result['sells'][sOrder.dish.DishName].setdefault('amout', 0) + int(sOrder.amount)
+                result['sells'][sOrder.dish.DishName]['price'] = result['sells'][sOrder.dish.DishName].setdefault('price', 0) + int(sOrder.dish.price)*int(sOrder.amount)
+
+    return JsonResponse(result, safe=False)
 
 # 顯示所有餐廳的簡略資料
 @queryString_required(['start'])

@@ -6,6 +6,7 @@ from gluttonyTw.view import order
 # restaurant api
 urlpatterns = [
   url(r'^api/restaurant/$', restaurant.rest_api, name='rest_api'),
+  url(r'^api/restaurant/boss$', restaurant.boss, name='boss'),
   url(r'^api/restaurant/prof/$', restaurant.restaurant_prof, name='restaurant_prof'),
   url(r'^api/restaurant/list/$', restaurant.restaurant_list, name='restaurant_list'),
   url(r'^api/restaurant/menu/$', restaurant.restaurant_menu, name='restaurant_menu'),

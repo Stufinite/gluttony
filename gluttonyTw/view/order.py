@@ -7,6 +7,7 @@ from django.http import JsonResponse, Http404
 from django.utils import timezone # auto generate create time.
 from gluttonyTw.apps import purchaseProc
 from gluttonyTw.view.get_user import get_user
+from django.views.decorators.csrf import csrf_exempt
 
 # 使用者的訂單資料，可指定當天或特定日期
 # @login_required
@@ -36,6 +37,7 @@ def user_api(request, date):
 
 
 # 顯示特定一間餐廳的詳細簡介資料
+@csrf_exempt
 def join_order(request):
 	if request.POST:
 		data = request.POST
