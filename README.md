@@ -157,6 +157,28 @@ Usage of API (pattern written below is URL pattern)：
       }
       ```
 
+  4. _`api/restaurant/boss/`_：讓老闆可以看到他們該月份的營業額
+
+    - 需要指定res_id（餐廳在資料庫的id）： `http://127.0.0.1:8000/t2e/api/restaurant/boss/?res_id=1`
+
+      ```
+      {
+        "chart": {
+          "2017-04-01": 50,
+          "2017-04-02": 80,
+          ...
+          "2017-04-30": 120
+        },
+        "sells": {
+          "今日特餐": {
+            "price": 50000,
+            "amout": 1000
+          }
+        },
+        "revenue": 70000
+      }
+      ```
+
 - 顧客類別：<br>
   可以用來定餐、查詢過往定餐紀錄等等。
 
