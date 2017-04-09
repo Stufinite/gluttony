@@ -22,7 +22,7 @@ def rest_api(request, date):
         "Date": str(date.date())
     }
     # 篩選出特定日期的訂單物件, 而且一定要是finished=True代表已經截止揪團
-    for OrderObject in Res.order_set.filter(create__date=datetime(date.year, date.month, date.day), finished=False):
+    for OrderObject in Res.order_set.filter(create__date=datetime.datetime(date.year, date.month, date.day), finished=False):
 
         json = {
             'total': int(OrderObject.total),
